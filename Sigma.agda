@@ -236,8 +236,7 @@ lem6 {l} A P cA = isoToPath f g t s
      t x = refl 
 
 lemSigProp : ∀ {l} {A : Set l} {B : A → Set l} {pB : (x : A) → prop (B x)} (t u : Σ A B) → Path (Path t u) (Path (t .fst) (u .fst)) 
-lemSigProp {l} {A} {B} {pB} t u = {!!}
---  compPath U (Path (Σ A B) t u) ((p:Path A (t .fst) (u .fst)) * PathP (<i> B (p@i)) (t .snd) (u .snd)) (Path A (t .fst) (u .fst)) rem2 rem1
+lemSigProp {l} {A} {B} {pB} t u = trans rem2 rem1
   where
    T : Set l
    T = Path (t .fst) (u .fst)
