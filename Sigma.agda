@@ -98,14 +98,6 @@ funDepTr {l} {m} {A} {P} a0 a1 p u0 u1 = trans q r
                  (Path {A = P a1} (transport (\ i → P (p i)) u0) u1)
      r = sym (nonDepPath ((transport (\ i → P (p i)) u0)) u1)
 
-
-subst : ∀ {l m} {A : Set l} {P : A → Set m} (a b : A) (p : Path a b) → P a → P b
-subst {l} {m} {A} {P} a b p p0 = pathJ {l} {m} (\ (y : A) → \_ → P y) p0 b p
-
-substInv : ∀ {l m} {A : Set l} {P : A → Set m} (a x : A) (p : Path a x) → P x → P a 
-substInv {l} {m} a x p  =  subst {l} {m} x a (\ i → p (~ i)) 
-
-
 lem2 : ∀ {l m} {A : Set l} {B : A → Set m} (t u : Σ {l} {m} A B) (p : Path (fst t) (fst u)) → Path (PathP (\ i →  B (p i)) (snd t) (snd u)) (Path (transport (\ i → B (p i)) (snd t)) (snd u))
 lem2 {l} {m} {A} {B} t u p = funDepTr (fst t) (fst u) p (snd t) (snd u) 
 
