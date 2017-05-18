@@ -15,12 +15,12 @@ module PathPrelude where
   pathJ P d _ p = primComp (λ i → P (p i) (\ j → p (i ∧ j))) i0 (\ _ → empty) d
 
 
-  subst : ∀ {l m} {A : Set l} {P : A → Set m} {a b : A} (p : Path a b) → P a → P b
-  subst {l} {m} {A} {P} {a} {b} p p0 = pathJ {l} {m} (\ (y : A) → \_ → P y) p0 b p
+  subst : ∀ {l m} {A : Set l} (P : A → Set m) {a b : A} (p : Path a b) → P a → P b
+  subst {l} {m} {A} P {a} {b} p p0 = pathJ {l} {m} (\ (y : A) → \_ → P y) p0 b p
 
 
-  substInv : ∀ {l m} {A : Set l} {P : A → Set m} {a x : A} (p : Path a x) → P x → P a 
-  substInv p  =  subst (\ i → p (~ i)) 
+  substInv : ∀ {l m} {A : Set l} (P : A → Set m) {a x : A} (p : Path a x) → P x → P a 
+  substInv P p  =  subst P (\ i → p (~ i)) 
 
 
   pathJprop : ∀ {a}{p}{A : Set a}{x : A}(P : ∀ y → Path x y → Set p) → (d : P x ((\ i -> x))) → pathJ P d _ refl ≡ d

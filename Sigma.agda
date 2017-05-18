@@ -102,7 +102,7 @@ lem2 : ∀ {l m} {A : Set l} {B : A → Set m} (t u : Σ {l} {m} A B) (p : Path 
 lem2 {l} {m} {A} {B} t u p = funDepTr (fst t) (fst u) p (snd t) (snd u) 
 
 corSigProp : ∀ {l m} {A : Set l} {B : A → Set m} {pB : (x : A) → prop (B x)} (t u : Σ A B) (p : Path (fst t) (fst u)) → prop (PathP (\i → B (p i)) (snd t) (snd u))
-corSigProp {l} {m} {A} {B} {pB} t u p = substInv {P = prop} rem rem1 --  {A = Set m} {P = prop} T0 T1
+corSigProp {l} {m} {A} {B} {pB} t u p = substInv prop rem rem1 --  {A = Set m} {P = prop} T0 T1
   where 
     P : I → Set m
     P = \i → B (p i)
@@ -125,7 +125,7 @@ corSigProp {l} {m} {A} {B} {pB} t u p = substInv {P = prop} rem rem1 --  {A = Se
 
 corSigSet : ∀ {l m} {A : Set l} {B : A → Set m} {sB : (x : A) → set (B x)} (t u : Σ A B) (p : Path (fst t) (fst u))
   →  prop (PathP (\ i → B (p i)) (snd t) (snd u)) 
-corSigSet {l} {m} {A} {B} {sB} t u p = substInv {P = prop} rem rem1 --  {A = Set m} {prop} T0 T1
+corSigSet {l} {m} {A} {B} {sB} t u p = substInv prop rem rem1 --  {A = Set m} {prop} T0 T1
   where 
     P : I → Set m -- Path (B (fst t)) (B (fst u))
     P = \ i → B (p i)
@@ -148,7 +148,7 @@ corSigSet {l} {m} {A} {B} {sB} t u p = substInv {P = prop} rem rem1 --  {A = Set
 
 setSig : ∀ {l m} {A : Set l} {B : A → Set m} {sA : set A} {sB : (x : A) → set (B x)}
   (t u : Σ A B) →  prop (Path t u) 
-setSig {l} {m} {A} {B} {sA} {sB} t u = substInv {P = prop} rem3 rem2 --  {A = Set (m ⊔ l)} {prop} (Path t u) (Σ T (\ p →  C p))
+setSig {l} {m} {A} {B} {sA} {sB} t u = substInv prop rem3 rem2 --  {A = Set (m ⊔ l)} {prop} (Path t u) (Σ T (\ p →  C p))
   where
     T : Set l
     T = Path (t .fst) (u .fst)
@@ -165,7 +165,7 @@ setSig {l} {m} {A} {B} {sA} {sB} t u = substInv {P = prop} rem3 rem2 --  {A = Se
 
 corSigGroupoid : ∀ {l m} {A : Set l} {B : A → Set m} (gB : (x : A) → groupoid (B x)) (t u : Σ A B) (p : Path (t .fst) (u .fst))
    →  set (PathP (\ i → B (p i)) (t .snd) (u .snd)) 
-corSigGroupoid {l} {m} {A} {B} gB t u p = substInv {P = set} rem rem1 -- {A = Set m} {set} T0 T1
+corSigGroupoid {l} {m} {A} {B} gB t u p = substInv set rem rem1 -- {A = Set m} {set} T0 T1
  where P : I → Set m -- Path (B (t .fst)) (B (u .fst)) 
        P = \i → B (p i)
        T0 : Set m
@@ -180,7 +180,7 @@ corSigGroupoid {l} {m} {A} {B} gB t u p = substInv {P = set} rem rem1 -- {A = Se
        rem1 = gB (u .fst) v2 (u .snd)
 
 groupoidSig : ∀ {l m} {A : Set l} {B : A → Set m} (gA : groupoid A) (gB : (x : A) → groupoid (B x)) (t u : Σ A B)→ set (Path t u) 
-groupoidSig {l} {m} {A} {B} gA gB t u = substInv {P = set} rem3 rem2 -- {A = Set (m ⊔ l)} {set} (Path t u) (Σ T (\ p → C p))
+groupoidSig {l} {m} {A} {B} gA gB t u = substInv set rem3 rem2 -- {A = Set (m ⊔ l)} {set} (Path t u) (Σ T (\ p → C p))
   where
     T : Set l
     T = Path (t .fst) (u .fst)
@@ -201,7 +201,7 @@ lemContr {l} {A} pA a = (a , rem)
         rem y = pA a y
 
 lem3  : ∀ {l m} {A : Set l} {B : A → Set m} (pB : (x : A) → prop (B x)) (t u : Σ A B) (p : Path (t .fst) (u .fst)) →  Contr.isContr (PathP (\ i → B (p i)) (t .snd) (u .snd)) 
-lem3 {l} {m} {A} {B} pB t u p = lemContr (substInv {P = prop} rem rem1) rem2 
+lem3 {l} {m} {A} {B} pB t u p = lemContr (substInv prop rem rem1) rem2 
    where 
      P : I → Set m -- Path (B (t .fst)) (B (u .fst)) 
      P = \ i → B (p i)
