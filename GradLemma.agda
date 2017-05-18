@@ -151,3 +151,7 @@ module _ {l l' : _}  where
 
   invEquiv-invol : {A : U} {B : V} (f : Equiv.Equiv A B) → Path (invEquiv (invEquiv f)) f
   invEquiv-invol f = \ i → fst f , (propIsEquiv (fst f) (snd (invEquiv (invEquiv f))) (snd f) i)
+
+
+groupoid : ∀ {l} (A : Set l) → Set l 
+groupoid A = (a b : A) → set (Path a b)
